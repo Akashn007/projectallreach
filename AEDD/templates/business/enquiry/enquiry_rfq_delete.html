@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Enquiry RFQ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        h1 {
+            color: #dc3545;
+        }
+        p {
+            margin: 20px 0;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .delete-btn, .cancel-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .cancel-btn {
+            background-color: #6c757d;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+        .cancel-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Enquiry RFQ</h1>
+        <p>Are you sure you want to delete this enquiry?</p>
+        <div class="btn-group">
+            <form method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="delete-btn">Yes, Delete</button>
+            </form>
+            <a href="{% url 'enquiry_rfq_list' %}" class="cancel-btn">Cancel</a>
+        </div>
+    </div>
+</body>
+</html>

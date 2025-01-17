@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Enquiry RFQ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .submit-btn, .cancel-btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        .submit-btn {
+            background-color: #007bff;
+        }
+        .cancel-btn {
+            background-color: #6c757d;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .cancel-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Enquiry RFQ</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div>
+                <button type="submit" class="submit-btn">Save Changes</button>
+                <a href="{% url 'enquiry_rfq_list' %}" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Client Directory Details</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Client Directory Details</h1>
+
+        <!-- Display messages -->
+        {% if messages %}
+        <div id="message">
+            {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form id="clientForm" action="{% url 'add_client_directory' %}" method="POST">
+            {% csrf_token %}
+
+            <!-- Company Details -->
+            <label for="company-name">Company Name:</label>
+            <input type="text" id="company-name" name="company_name" placeholder="Enter company name" required>
+
+            <!-- Company Address -->
+            <label for="company-address">Company Address:</label>
+            <div id="address-group" class="group">
+                <div class="entry">
+                    <textarea name="company_address[]" rows="3" placeholder="Enter address" required></textarea>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addField('address-group', 'textarea', 'company_address[]', 'Enter another address')">Add More</button>
+
+            <!-- Company URL -->
+            <label for="company-url">Company URL:</label>
+            <input type="url" id="company-url" name="company_url" placeholder="Enter URL">
+
+            <!-- Company Contacts -->
+            <label for="company-contact">Company Contact No:</label>
+            <div id="contact-group" class="group">
+                <div class="entry">
+                    <input type="tel" name="company_contact[]" placeholder="Enter contact number" required>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addField('contact-group', 'input', 'company_contact[]', 'Enter another contact number')">Add More</button>
+
+            <!-- Company Emails -->
+            <label for="company-email">Company Email:</label>
+            <div id="email-group" class="group">
+                <div class="entry">
+                    <input type="email" name="company_email[]" placeholder="Enter email" required>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addField('email-group', 'input', 'company_email[]', 'Enter another email')">Add More</button>
+
+            <!-- Department -->
+            <label for="department">Dept/Division:</label>
+            <input type="text" id="department" name="department" placeholder="Enter department" required>
+
+            <!-- Contact Person Details -->
+            <label for="contact-name">Contact Person Name:</label>
+            <input type="text" id="contact-name" name="contact_person_name" placeholder="Enter contact person name" required>
+
+            <label for="contact-designation">Contact Person Designation:</label>
+            <input type="text" id="contact-designation" name="contact_person_designation" placeholder="Enter designation" required>
+
+            <label for="contact-number">Contact Person Number:</label>
+            <div id="contact-person-group" class="group">
+                <div class="entry">
+                    <input type="tel" name="contact_number[]" placeholder="Enter contact person number" required>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addField('contact-person-group', 'input', 'contact_number[]', 'Enter another contact number')">Add More</button>
+
+            <label for="contact-email">Contact Person Email:</label>
+            <div id="contact-email-group" class="group">
+                <div class="entry">
+                    <input type="email" name="contact_email[]" placeholder="Enter contact person email" required>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                </div>
+            </div>
+            <button type="button" onclick="addField('contact-email-group', 'input', 'contact_email[]', 'Enter another email')">Add More</button>
+
+            <!-- Additional Information -->
+            <label for="additional-info">Additional Information:</label>
+            <textarea id="additional-info" name="additional_info" rows="4" placeholder="Enter additional information"></textarea>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        // Generalized function to add a field
+        function addField(groupId, fieldType, fieldName, placeholder) {
+            const group = document.getElementById(groupId);
+            const entry = document.createElement('div');
+            entry.className = 'entry';
+            if (fieldType === 'textarea') {
+                entry.innerHTML = `
+                    <textarea name="${fieldName}" rows="3" placeholder="${placeholder}" required></textarea>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                `;
+            } else {
+                entry.innerHTML = `
+                    <input type="text" name="${fieldName}" placeholder="${placeholder}" required>
+                    <button type="button" class="remove-entry" onclick="removeEntry(this)">Remove</button>
+                `;
+            }
+            group.appendChild(entry);
+        }
+
+        // Function to remove a field
+        function removeEntry(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>

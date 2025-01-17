@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Meeting</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #FF5252;
+        }
+
+        p {
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .btn-delete {
+            background-color: #FF5252;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background-color: #e53935;
+        }
+
+        .btn-cancel {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Confirm Delete</h2>
+        <p>Are you sure you want to delete the meeting "{{ meeting.enquiry_ref_no }}"?</p>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete">Delete</button>
+            <a href="{% url 'meeting_list' %}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

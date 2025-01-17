@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Shortlisted Applicants</h1>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Position</th>
+            <th>Shortlisted Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in shortlisted %}
+        <tr>
+            <td>{{ item.applicant.name }}</td>
+            <td>{{ item.applicant.email }}</td>
+            <td>{{ item.applicant.phone }}</td>
+            <td>{{ item.applicant.applied_position }}</td>
+            <td>{{ item.shortlisted_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Follow-Up</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+    
+        .form-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+    
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+    
+        label {
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+    
+        input, textarea {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+    
+        textarea {
+          resize: none;
+        }
+    
+        .btn {
+          background-color:#28c1e7;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          grid-column: span 2;
+        }
+    
+        .btn:hover {
+          background-color:#28c1e7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Create New Follow-Up</h1>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-container">
+            
+            <!-- Follow-Up Notes -->
+            <div class="form-group">
+                <label for="followUpNotes">Follow-Up Notes</label>
+                {{ form.follow_up_notes }} <!-- Render the field using Django's form handling -->
+            </div>
+
+            <!-- Client Field (assuming you want to select the client from a dropdown) -->
+            <div class="form-group">
+                <label for="client">Client</label>
+                {{ form.client }} <!-- Render the client field -->
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn">Save Follow-Up</button>
+            </div>
+        </div>
+
+        <!-- Display form errors if any -->
+        {% if form.errors %}
+            <div class="errors">
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </form>
+</body>
+</html>

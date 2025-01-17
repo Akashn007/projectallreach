@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Delete Interview</title>
+</head>
+<body>
+    <h1>Are you sure you want to delete this interview?</h1>
+    <p>{{ interview.candidate_name }} - {{ interview.position }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+       
+    </form>
+</body>
+</html>

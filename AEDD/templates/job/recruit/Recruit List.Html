@@ -1,0 +1,181 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment List and Scheduling</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="date"], input[type="time"] {
+            font-size: 14px;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 15px;
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            font-size: 14px;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .edit-btn {
+            background-color: #ffc107;
+        }
+        .edit-btn:hover {
+            background-color: #e0a800;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+        <h1>Recruitment List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Interview Date</th>
+                    <th>Interview Time</th>
+                    <th>Additional Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John Doe</td>
+                    <td>john.doe@example.com</td>
+                    <td>Software Engineer</td>
+                    <td>2025-01-15</td>
+                    <td>10:00 AM</td>
+                    <td>Bring portfolio</td>
+                    <td>
+                        <button class="action-btn edit-btn">Edit</button>
+                        <button class="action-btn delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jane Smith</td>
+                    <td>jane.smith@example.com</td>
+                    <td>Project Manager</td>
+                    <td>2025-01-16</td>
+                    <td>2:00 PM</td>
+                    <td>Prepare a presentation</td>
+                    <td>
+                        <button class="action-btn edit-btn">Edit</button>
+                        <button class="action-btn delete-btn">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mike Johnson</td>
+                    <td>mike.johnson@example.com</td>
+                    <td>Data Analyst</td>
+                    <td>2025-01-17</td>
+                    <td>11:30 AM</td>
+                    <td>Bring case study results</td>
+                    <td>
+                        <button class="action-btn edit-btn">Edit</button>
+                        <button class="action-btn delete-btn">Delete</button>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('message').textContent = 'Interview scheduled successfully!';
+        });
+
+        const editButtons = document.querySelectorAll('.edit-btn');
+        const deleteButtons = document.querySelectorAll('.delete-btn');
+
+        editButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Edit functionality is not yet implemented.');
+            });
+        });
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                row.remove();
+                alert('Entry deleted successfully.');
+            });
+        });
+    </script>
+</body>
+</html>

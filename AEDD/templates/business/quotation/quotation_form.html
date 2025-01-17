@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quotation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h2, h3 {
+            color: #333;
+        }
+
+        form {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input, select {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: calc(100% - 20px);
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .pricing-item, .term-item {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pricing-item input, .term-item input {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <h2>Create New Quotation</h2>
+    <form method="POST" action="{% url 'create_quotation' %}">
+        {% csrf_token %}
+
+        <!-- Enquiry Reference Number -->
+        <div class="form-group">
+            <label for="enquiry_ref_no">Enquiry Reference Number:</label>
+            <select name="enquiry_ref_no" required>
+                <option value="" disabled selected>Select an Enquiry</option>
+                {% for meeting in meetings %}
+                    <option value="{{ meeting.id }}">{{ meeting.enquiry_ref_no }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        {{ form.as_p }}
+
+        <h3>Pricing Details</h3>
+        <div id="pricing-container">
+            <div class="pricing-item">
+                <label>Description:</label><input type="text" name="description[]" required>
+                <label>HSN Code:</label><input type="text" name="hsn_code[]" required>
+                <label>Quantity:</label><input type="number" name="qty[]" required>
+                <label>Cost/Qty:</label><input type="number" name="cost_per_qty[]" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addPricing()">Add Pricing</button>
+
+        <h3>Payment Terms</h3>
+        <div id="payment-terms-container">
+            <div class="term-item">
+                <input type="text" name="payment_terms[]" placeholder="Payment Term" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addTerm('payment-terms-container', 'payment_terms[]')">Add Payment Term</button>
+
+        <h3>Other Terms</h3>
+        <div id="other-terms-container">
+            <div class="term-item">
+                <input type="text" name="other_terms[]" placeholder="Other Term" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" onclick="addTerm('other-terms-container', 'other_terms[]')">Add Other Term</button>
+
+        <button type="submit">Save Quotation</button>
+    </form>
+
+    <script>
+        function addPricing() {
+            const container = document.getElementById('pricing-container');
+            const item = document.createElement('div');
+            item.classList.add('pricing-item');
+            item.innerHTML = `
+                <label>Description:</label><input type="text" name="description[]" required>
+                <label>HSN Code:</label><input type="text" name="hsn_code[]" required>
+                <label>Quantity:</label><input type="number" name="qty[]" required>
+                <label>Cost/Qty:</label><input type="number" name="cost_per_qty[]" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            `;
+            container.appendChild(item);
+        }
+
+        function addTerm(containerId, name) {
+            const container = document.getElementById(containerId);
+            const item = document.createElement('div');
+            item.classList.add('term-item');
+            item.innerHTML = `
+                <input type="text" name="${name}" placeholder="Term" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            `;
+            container.appendChild(item);
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+</html>

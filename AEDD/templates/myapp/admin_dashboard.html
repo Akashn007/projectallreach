@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}"><!-- Link to external stylesheet -->
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-heading">Admin Dashboard</h1>
+
+        <!-- Client Directory Creation Section -->
+        <div class="section client-directory">
+            <h2 class="section-title"><a href="{% url 'client_directory' %}" style="text-decoration: none;"> Directory Creation</a></h2>
+            <p>Manage and organize client directories to keep track of all client information in one place.</p>
+        </div>
+
+        <!-- Customer Follow-Up Section -->
+        <div class="section customer-followup">
+            <h2 class="section-title">
+                <a href="{% url 'follow_up_list' %}" style="text-decoration: none;">Customer Follow-Up</a>
+            </h2>
+            <p>Handle customer follow-ups efficiently to improve client relationships and satisfaction.</p>
+        </div>
+        
+
+        <!-- Enquiry/Requirements Section -->
+        <div class="section enquiry-requirements">
+            <h2 class="section-title"><a href="{% url 'enquiry_rfq_list' %}" style="text-decoration: none;">Enquiry/Requirements</a></h2>
+            <p>Track and manage enquiries or requirements from potential clients and customers.</p>
+        </div>
+
+        <!-- E-Directory Creation Section -->
+        <div class="section edirectory-creation">
+            <h2 class="section-title"><a href="{% url 'e-diary-list' %}" style="text-decoration: none;"> E-Dairy Creation</a></h2>
+            <p>Create and maintain electronic directories to streamline digital documentation processes.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting List</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-view {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-view:hover {
+            background-color: #45a049;
+        }
+
+        .btn-add {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .btn-add:hover {
+            background-color: #0056b3;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            table, .btn-view {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Meeting List</h2>
+
+        {% if meetings %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Enquiry Ref No</th>
+                        <th>Agenda</th>
+                        <th>Date & Time</th>
+                        <th>Department</th>
+                        <th>Attendees</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for meeting in meetings %}
+                        <tr>
+                            <td>{{ meeting.enquiry_ref_no }}</td>
+                            <td>{{ meeting.agenda|slice:":50" }}...</td>
+                            <td>{{ meeting.date_time|date:"F d, Y h:i A" }}</td>
+                            <td>{{ meeting.department }}</td>
+                            <td>
+                                {% for attendee in meeting.attendees.all %}
+                                    <div><strong>{{ attendee.name }}</strong> - {{ attendee.designation }}</div>
+                                {% empty %}
+                                    <p>No attendees</p>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{% url 'meeting_detail' meeting.id %}" class="btn-view">View Details</a>
+                                <a href="{% url 'meeting_edit' meeting.id %}" class="btn-view">Edit</a>
+                                <a href="{% url 'meeting_delete' meeting.id %}" class="btn-view">Delete</a>
+                                
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No meetings scheduled yet.</p>
+        {% endif %}
+
+        <a href="{% url 'meeting_create' %}" class="btn-add">Create New Meeting</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Enquiry Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea, select {
+            width: calc(100% - 50px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .add-button, .remove-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        .remove-button {
+            background-color: #dc3545;
+        }
+        .field-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Business Enquiry Form</h1>
+        <form method="post" action="{% url 'add_enquiry_form' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="graphic-design">Graphic Design and Animation</label>
+                <div id="graphic-design-container">
+                    <div class="field-container">
+                        <input type="text" name="graphic_design[]" placeholder="Enter value">
+                        <button type="button" class="add-button" onclick="addField('graphic-design-container', 'graphic_design[]')">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="technical-staffing">Technical Staffing Services</label>
+                <div id="technical-staffing-container">
+                    <div class="field-container">
+                        <input type="text" name="technical_staffing[]" placeholder="Enter value">
+                        <button type="button" class="add-button" onclick="addField('technical-staffing-container', 'technical_staffing[]')">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="trading-services">Trading Services</label>
+                <textarea name="trading_services" rows="4" placeholder="Enter trading services details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="design-development">Design and Development</label>
+                <textarea name="design_and_development" rows="4" placeholder="Enter design and development details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="software-design">Software Design & Development / Engineering Analysis</label>
+                <textarea name="software_design_and_dev_engineering_analysis" rows="4" placeholder="Enter details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="manufacturing">Manufacturing</label>
+                <textarea name="manufacturing" rows="4" placeholder="Enter manufacturing details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="fabrication">Fabrication</label>
+                <textarea name="fabrication" rows="4" placeholder="Enter fabrication details"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="additional-information">Additional Information</label>
+                <textarea name="additional_information" rows="4" placeholder="Enter additional information"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="enquiry_ref_no">Enquiry Reference Number</label>
+                <select name="enquiry_ref_no">
+                    {% for meeting in meetings %}
+                        <option value="{{ meeting.id }}">{{ meeting.enquiry_ref_no }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function addField(containerId, fieldName) {
+            const container = document.getElementById(containerId);
+            const newField = document.createElement('div');
+            newField.classList.add('field-container');
+            newField.innerHTML = `
+                <input type="text" name="${fieldName}" placeholder="Enter value">
+                <button type="button" class="remove-button" onclick="removeField(this)">-</button>
+            `;
+            container.appendChild(newField);
+        }
+
+        function removeField(button) {
+            const parent = button.parentElement;
+            parent.remove();
+        }
+    </script>
+</body>
+</html>

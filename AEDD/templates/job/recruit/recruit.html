@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9; 
+        }
+
+        header {
+            background-color: #2eaece;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 2rem;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 1rem;
+            padding: 1.5rem;
+            flex: 1 1 calc(33.333% - 2rem);
+            box-sizing: border-box;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #2eaece;;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .card a:hover {
+            color:  #2eaece;;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color:  #2eaece;;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Recruitment Dashboard</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+        
+        <h3><a href="{% url 'rs process' %}">Candidate Data Creation</a></h3>
+       
+        <p>Manage and create candidate profiles.</p>
+        <a href="#">Go to Candidate Data</a>
+    </div>
+
+    <div class="card">
+        <h3>Recruitment & Selection</h3>
+        <p>Track and manage the recruitment process.</p>
+        <a href="{% url 'interview' %}">Go to Recruitment</a>
+    </div>
+
+    <div class="card">
+        <h3>Reports</h3>
+        <p>Generate and view recruitment reports.</p>
+        <a href="#">Go to Reports</a>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2025 Recruitment Dashboard. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #444;
+        }
+
+        .detail-container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .quotation-info {
+            margin-bottom: 30px;
+        }
+
+        .quotation-info h3 {
+            color: #007bff;
+        }
+
+        .quotation-info p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .back-btn {
+            display: block;
+            width: 150px;
+            margin: 30px auto;
+            padding: 10px;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Quotation Details</h2>
+    <div class="detail-container">
+        <div class="quotation-info">
+            <h3>Quotation Information</h3>
+            <p><strong>Quotation No:</strong> {{ quotation.quotation_no }}</p>
+            <p><strong>Company Name:</strong> {{ quotation.company_name }}</p>
+            <p><strong>Company GST No:</strong> {{ quotation.company_gst_no }}</p>
+            <p><strong>Quotation Date:</strong> {{ quotation.quotation_date }}</p>
+            <p><strong>Validity:</strong> {{ quotation.quotation_validity }}</p>
+            <p><strong>Additional Info:</strong> {{ quotation.additional_info }}</p>
+            <p><strong>Delivery Schedule:</strong> {{ quotation.delivery_schedule }}</p>
+            <p><strong>GST Number:</strong> {{ quotation.gst_number }}</p>
+            <p><strong>PAN Number:</strong> {{ quotation.pan_number }}</p>
+        </div>
+
+        <h3>Quotation Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>HSN Code</th>
+                    <th>Quantity</th>
+                    <th>Cost per Quantity</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in quotation.details.all %}
+                <tr>
+                    <td>{{ detail.description }}</td>
+                    <td>{{ detail.hsn_code }}</td>
+                    <td>{{ detail.qty }}</td>
+                    <td>{{ detail.cost_per_qty }}</td>
+                    <td>{{ detail.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h3>Payment Terms</h3>
+        <ul>
+            {% for term in quotation.payment_terms.all %}
+                <li>{{ term.term }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>Other Terms</h3>
+        <ul>
+            {% for term in quotation.other_terms.all %}
+                <li>{{ term.term }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'quotation_list' %}" class="back-btn">Back to Quotation List</a>
+    </div>
+</body>
+</html>

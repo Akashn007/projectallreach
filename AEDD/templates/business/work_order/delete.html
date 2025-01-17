@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Work Order</title>
+
+    <!-- Internal CSS for styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .container p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        form button {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #c0392b;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        a.back-button {
+            padding: 10px 20px;
+            background-color: #ccc;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        a.back-button:hover {
+            background-color: #bbb;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Delete Work Order</h1>
+    </header>
+
+    <div class="container">
+        <p>Are you sure you want to delete the Work Order with PO Number: <strong>{{ work_order.po_number }}</strong>?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <button type="submit">Delete</button>
+            </div>
+        </form>
+
+        <div class="button-container">
+            <a href="{% url 'work_order_detail' pk=work_order.pk %}" class="back-button">Cancel</a>
+        </div>
+    </div>
+
+</body>
+</html>

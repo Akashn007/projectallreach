@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Diary Creation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button a{
+            text-decoration: none;
+            color: #000;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>E-Diary Creation</h1>
+
+<table id="diaryTable">
+    <thead>
+        <tr>
+            <th>Company Name</th>
+            <th>Company Address</th>
+            <th>Company URL</th>
+            <th>Company Contact No.</th>
+            <th>Company Email</th>
+            <th>Dept./Division</th>
+            <th>Contact Person Name</th>
+            <th>Contact Person Designation</th>
+            <th>Contact Person Contact No.</th>
+            <th>Contact Person Email</th>
+            <th>Follow-Up</th>
+            <th>Meetings Date & Time</th>
+            <th>Enquiry/Requirement List</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <td>Sindhu</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><button ><a href="add_meeting.html"> Add Meeting Details</a> </button></td>
+        <!-- Dynamic rows will be added here -->
+    </tbody>
+</table>
+<br><br>
+<!-- Button -->
+<button ><a href="add_meeting.html"> Add Meeting Details</a> </button>
+
+
+</body>
+</html>

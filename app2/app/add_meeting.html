@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+    
+        .form-container {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          margin-bottom: 20px;
+        }
+    
+        .form-group {
+          display: flex;
+          flex-direction: column;
+        }
+    
+        label {
+          margin-bottom: 5px;
+          font-weight: bold;
+        }
+    
+        input, textarea {
+          padding: 8px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+    
+        textarea {
+          resize: none;
+        }
+    
+        .btn {
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+          grid-column: span 2;
+        }
+    
+        .btn:hover {
+          background-color: #45a049;
+        }
+    
+        table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 20px;
+        }
+    
+        table, th, td {
+          border: 1px solid #ccc;
+        }
+    
+        th, td {
+          padding: 10px;
+          text-align: left;
+        }
+    
+        th {
+          background-color: #f4f4f4;
+        }
+      </style>
+    <div class="form-container">
+        <div class="form-group">
+          <label for="companyName">Company Name</label>
+          <input type="text" id="companyName" placeholder="Enter company name" required>
+        </div>
+        <div class="form-group">
+          <label for="companyAddress">Company Address</label>
+          <textarea id="companyAddress" placeholder="Enter company address" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="companyURL">Company URL</label>
+          <input type="url" id="companyURL" placeholder="https://example.com">
+        </div>
+        <div class="form-group">
+          <label for="companyContactNo">Company Contact No</label>
+          <input type="tel" id="companyContactNo" placeholder="Enter contact number">
+        </div>
+        <div class="form-group">
+          <label for="companyEmail">Company Email</label>
+          <input type="email" id="companyEmail" placeholder="Enter email address">
+        </div>
+        <div class="form-group">
+          <label for="department">Dept./Division</label>
+          <input type="text" id="department" placeholder="Enter department or division">
+        </div>
+        <div class="form-group">
+          <label for="contactPersonName">Contact Person Name</label>
+          <input type="text" id="contactPersonName" placeholder="Enter contact person's name">
+        </div>
+        <div class="form-group">
+          <label for="contactPersonDesignation">Contact Person Designation</label>
+          <input type="text" id="contactPersonDesignation" placeholder="Enter designation">
+        </div>
+        <div class="form-group">
+          <label for="contactPersonContactNo">Contact Person Contact No</label>
+          <input type="tel" id="contactPersonContactNo" placeholder="Enter contact number">
+        </div>
+        <div class="form-group">
+          <label for="contactPersonEmail">Contact Person Email</label>
+          <input type="email" id="contactPersonEmail" placeholder="Enter email address">
+        </div>
+        <br>
+        <button type="submit">Submit </button>
+       
+      </div>
+      <script>
+        function addFollowUp() {
+          // Fetch values from form
+          const companyName = document.getElementById('companyName').value;
+          const companyAddress = document.getElementById('companyAddress').value;
+          const companyURL = document.getElementById('companyURL').value;
+          const companyContactNo = document.getElementById('companyContactNo').value;
+          const companyEmail = document.getElementById('companyEmail').value;
+          const department = document.getElementById('department').value;
+          const contactPersonName = document.getElementById('contactPersonName').value;
+          const contactPersonDesignation = document.getElementById('contactPersonDesignation').value;
+          const contactPersonContactNo = document.getElementById('contactPersonContactNo').value;
+          const contactPersonEmail = document.getElementById('contactPersonEmail').value;
+    
+          // Validation
+          if (!companyName || !companyContactNo || !contactPersonName) {
+            alert("Please fill in the required fields!");
+            return;
+          }
+    
+          // Add new row to the table
+          const recordsTable = document.getElementById('recordsTable').getElementsByTagName('tbody')[0];
+          const newRow = recordsTable.insertRow();
+    
+          newRow.innerHTML = `
+            <td>${companyName}</td>
+            <td>${companyAddress}</td>
+            <td>${companyURL}</td>
+            <td>${companyContactNo}</td>
+            <td>${companyEmail}</td>
+            <td>${department}</td>
+            <td>${contactPersonName}</td>
+            <td>${contactPersonDesignation}</td>
+            <td>${contactPersonContactNo}</td>
+            <td>${contactPersonEmail}</td>
+          `;
+    
+          // Clear the form
+          document.querySelector('.form-container').reset();
+          alert("Follow-Up added successfully!");
+        }
+      </script>
+</body>
+</html>

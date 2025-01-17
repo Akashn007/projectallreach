@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>enquiry</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div>
+        <h1>Enquiry and Requirements</h1>
+        <table border="1" cellspacing="0" cellpadding="5">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Company Address</th>
+                    <th>Company URL</th>
+                    <th>Company Contact No</th>
+                    <th>Company Email</th>
+                    <th>Dept/Division</th>
+                    <th>Contact Person Name</th>
+                    <th>Contact Person Designation</th>
+                    <th>Contact Person Number</th>
+                    <th>Contact Person Email</th>
+                    <th>Additional Information</th>
+                    <th>Enquiries</th>
+                    <th>Requirements</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                <tr>
+                    <td>{{ client.company_name }}</td>
+                    <td>
+                        <ul>
+                            {% for addr in client.addresses.all %}
+                                <li>{{ addr.address }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ client.company_url }}</td>
+                    <td>
+                        <ul>
+                            {% for cont in client.company_contacts.all %}
+                                <li>{{ cont.contact_number }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for mail in client.company_emails.all %}
+                                <li>{{ mail.email }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ client.department }}</td>
+                    <td>{{ client.contact_person_name }}</td>
+                    <td>{{ client.contact_person_designation }}</td>
+                    <td>
+                        <ul>
+                            {% for cont_num in client.contact_person_numbers.all %}
+                                <li>{{ cont_num.contact_number }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for cont_mail in client.contact_person_emails.all %}
+                                <li>{{ cont_mail.contact_email }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ client.additional_info }}</td>
+                    <td>
+                        {% if client.enquiries.all %}
+                            {{ client.enquiries.all.0.enquiry }}  <!-- Show the first enquiry -->
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if client.enquiries.all %}
+                            {{ client.enquiries.all.0.requirements }}  <!-- Show requirements for first enquiry -->
+                        {% endif %}
+                    </td>
+                    <td>
+                       <button> <a href="{% url 'edit_enquiry' client.id %}" class="btn btn-primary" style="text-decoration: none; color: aliceblue;">Edit</a></button>
+                        
+                    </td>
+                    <td>
+                      <button>  <a href="{% url 'delete_enquiry' client.id %}" class="btn btn-danger" style="text-decoration: none; color: aliceblue;">Delete</a></button>
+                    </td>
+                </tr>
+                {% empty %}
+               
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>
+            <button class="add-btn"><a href="{% url 'add_enquiry' %}" style="text-decoration: none; color: aliceblue;">Add New Enquiry</a></button>
+        </p>
+    </div>
+</body>
+</html>

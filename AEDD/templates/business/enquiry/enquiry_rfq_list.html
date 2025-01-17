@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry RFQ List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 90%;
+            margin: 30px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+
+        li:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enquiry RFQ List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Enquiry Reference</th>
+                <th>Trading Services</th>
+                <th>Design and Development</th>
+                <th>Software Design & Development</th>
+                <th>Manufacturing</th>
+                <th>Fabrication</th>
+                <th>Additional Information</th>
+                <th>Graphic Details</th>
+                <th>Technical Staffing Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enquiry in enquiries %}
+            <tr>
+                <td>{{ enquiry.enquiry.enquiry_ref_no }}</td>
+                <td>{{ enquiry.trading_services }}</td>
+                <td>{{ enquiry.design_and_development }}</td>
+                <td>{{ enquiry.software_design_and_dev_engineering_analysis }}</td>
+                <td>{{ enquiry.manufacturing }}</td>
+                <td>{{ enquiry.fabrication }}</td>
+                <td>{{ enquiry.additional_information }}</td>
+                <td>
+                    <ul>
+                        {% for graphic in enquiry.enquiry.graphic_designs.all %}
+                        <li>{{ graphic.Graphic }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for technical in enquiry.enquiry.technical_staffing.all %}
+                        <li>{{ technical.technical }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button><a href="{% url 'add_enquiry_form' %}">Create Enquiry</a></button>
+</body>
+</html>

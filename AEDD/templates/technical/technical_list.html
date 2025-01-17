@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Forms List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <style>
+        button{
+            margin: 5px;
+            background-color: aqua;
+            text-decoration: none;
+            font-size: medium;
+        }
+    </style>
+    <div class="container my-4">
+        <h2 class="text-center">Technical Forms List</h2>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Project Number</th>
+                    <th>Work Order Date</th>
+                    <th>Project Plan</th>
+                    <th>Due Date</th>
+                    <th>Additional Info</th>
+                    <th>Scope of Work</th>
+                    <th>Project Team Leaders</th>
+                    <th>PTL Roles</th>
+                    <th>Project Team Members</th>
+                    <th>PTM Roles</th>
+                    <th>Project Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in forms %}
+                <tr>
+                    <td>{{ form.project_no }}</td>
+                    <td>{{ form.work_order_date }}</td>
+                    <td>{{ form.project_plan }}</td>
+                    <td>{{ form.due_date }}</td>
+                    <td>{{ form.additional_info }}</td>
+                    <td>
+                        <ul>
+                            {% for scope in form.scope_of_work.all %}
+                                <li>{{ scope.description }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for leader in form.project_team_leaders.all %}
+                                <li>{{ leader.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for role in form.ptl_roles.all %}
+                                <li>{{ role.role }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for member in form.project_team_members.all %}
+                                <li>{{ member.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for role in form.ptm_roles.all %}
+                                <li>{{ role.role }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for status in form.project_status.all %}
+                                <li>{{ status.status }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button><a href="{% url 'techform_view' %}" style="text-decoration: none;">Create Technical</a></button>
+    </div>
+    
+</body>
+</html>

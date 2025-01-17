@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment & Selection Process</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        header {
+            background-color: #2eaece;;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        footer {
+            background-color:   #2eaece;;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Recruitment & Selection Process</h1>
+</header>
+
+<div class="container">
+    <!-- <div class="card">
+        <h3>Job Specification</h3>
+        <p>Define and finalize the job requirements and responsibilities.</p>
+    </div> -->
+    <!-- <div class="card">
+        <h3>Applicant Search</h3>
+        <p>Search for potential candidates using various platforms.</p>
+    </div> -->
+    <!-- <div class="card">
+        <h3>Screen CVs</h3>
+        <p>Review resumes to shortlist suitable candidates.</p>
+    </div>
+    <div class="card">
+        <h3>Conduct Interviews</h3>
+        <p>Schedule and conduct interviews with shortlisted candidates.</p>
+    </div> -->
+    <div class="card">
+        <h3>Shortlist</h3>
+        <p>Select the top candidates from the interviews.</p>
+    </div>
+    <!-- <div class="card">
+        <h3>Follow-Up</h3>
+        <p>Communicate with candidates about the next steps.</p>
+    </div> -->
+    <div class="card">
+        <h3><a href="{% url 'schedule_interview' %}">Set-Up Interview</a></h3>
+        
+        <p>Coordinate interviews between candidates and the client.</p>
+    </div>
+    <!-- <div class="card">
+        <h3>Brief Client</h3>
+        <p>Provide detailed information about shortlisted candidates to the client.</p>
+    </div> -->
+    <!-- <div class="card">
+        <h3>Forward CVs</h3>
+        <p>Share selected resumes with the client for review.</p>
+    </div> -->
+    <!-- <div class="card">
+        <h3>Reference and Other Checks</h3>
+        <p>Verify references and conduct background checks.</p>
+    </div> -->
+    
+    <div class="card">
+        <h3>Offers</h3>
+        <p>Extend job offers to the selected candidates.</p>
+    </div>
+    <div class="card">
+        <h3>Regrets</h3>
+        <p>Inform unselected candidates about the decision.</p>
+    </div>
+    <div class="card">
+        <h3>Documentation</h3>
+        <p>Complete necessary documentation for onboarding.</p>
+    </div>
+    <!-- <div class="card">
+        <h3>Invoice</h3>
+        <p>Generate and send the invoice to the client.</p>
+    </div> -->
+    <!-- <div class="card">
+        <h3>Progress Report</h3>
+        <p>Provide updates to the client on the hiring process.</p>
+    </div> -->
+</div>
+
+<footer>
+    &copy; 2025 Recruitment Process & Selection Process
+</footer>
+
+</body>
+</html>

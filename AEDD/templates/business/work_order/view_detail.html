@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order Detail</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 20px 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .detail-section {
+            margin-bottom: 20px;
+        }
+
+        .detail-section h2 {
+            color: #4CAF50;
+        }
+
+        .detail-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .detail-section img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 15px;
+            border-radius: 8px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        a.back-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        a.back-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Work Order Details</h1>
+    </header>
+
+    <div class="container">
+        <div class="detail-section">
+            <h2>PO Number: {{ work_order.po_number }}</h2>
+            <p><strong>Date:</strong> {{ work_order.date }}</p>
+            <p><strong>Scope of Work:</strong></p>
+            <p>{{ work_order.scope_of_work }}</p>
+        </div>
+
+        {% if work_order.scope_of_work_image %}
+            <div class="detail-section">
+                <h2>Scope of Work Image:</h2>
+                <img src="{{ work_order.scope_of_work_image.url }}" alt="Scope of Work Image">
+            </div>
+        {% else %}
+            <p>No image available for this work order.</p>
+        {% endif %}
+
+        <div class="button-container">
+            <a href="{% url 'work_order_list' %}" class="back-button">Back to Work Order List</a>
+        </div>
+    </div>
+</body>
+</html>

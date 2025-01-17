@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .button-group a {
+            padding: 8px 12px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 0 5px;
+            display: inline-block;
+        }
+
+        .button-group a:hover {
+            background-color: #45a049;
+        }
+
+        .create-button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .create-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Work Order List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>PO No.</th>
+                <th>Date</th>
+                <th>Scope of Work</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for work_order in work_orders %}
+            <tr>
+                <td>{{ work_order.po_number }}</td>
+                <td>{{ work_order.date }}</td>
+                <td>{{ work_order.scope_of_work }}</td>
+                <td class="actions">
+                    <div class="button-group">
+                        <a href="{% url 'work_order_detail' pk=work_order.pk %}">View Details</a>
+                        <a href="{% url 'work_order_edit' pk=work_order.pk %}">Edit</a>
+                        <a href="{% url 'work_order_delete' pk=work_order.pk %}">Delete</a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center;">No Work Orders Found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <center>
+        <a href="{% url 'work_order_create' %}" class="create-button">Create Work</a>
+    </center>
+</body>
+</html>

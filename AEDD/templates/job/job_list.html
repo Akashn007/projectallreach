@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        .job-card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><img src="" alt="image"> Logo</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+                            <a class="nav-link" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item {% if request.path == '/about-us/' %}active{% endif %}">
+                            <a class="nav-link" href="about-us.html">About Us</a>
+                        </li>
+                        <li class="nav-item {% if request.path == '/services/' %}active{% endif %}">
+                            <a class="nav-link" href="services.html">Our Services</a>
+                        </li>
+                        <li class="nav-item {% if request.path == '/careers/' %}active{% endif %}">
+                            <a class="nav-link" href="portfolio.html">Careers</a>
+                        </li>
+                        <li class="nav-item {% if request.path == '/contact/' %}active{% endif %}">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 class="mb-4">Available Jobs</h1>
+
+        <div class="row">
+            {% for job in jobs %}
+                <div class="col-sm-6 col-md-4 mb-4">
+                    <!-- Job Card -->
+                    <div class="card job-card">
+                        <a href="{% url 'job_detail' job.id %}">
+                            <div class="card-body">
+                                <h5 class="card-title font-weight-bold">{{ job.title }}</h5>
+                                <p class="card-text">
+                                    <span><i class="fas fa-briefcase"></i> {{ job.experience }}</span>
+                                    <br>
+                                    <span><i class="fas fa-map-marker-alt"></i> {{ job.location }}</span>
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-3">
+        <div class="container">
+            <div class="row">
+                <!-- Company Info -->
+                <div class="col-md-4">
+                    <h6 class="font-weight-bold text-uppercase mb-2">About Us</h6>
+                    <p class="small">
+                        We are dedicated to providing high-quality services and solutions to help our clients achieve their goals.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div class="col-md-4">
+                    <h6 class="font-weight-bold text-uppercase mb-2">Quick Links</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="index.html" class="text-white">Home</a></li>
+                        <li><a href="about-us.html" class="text-white">About Us</a></li>
+                        <li><a href="services.html" class="text-white">Our Services</a></li>
+                        <li><a href="portfolio.html" class="text-white">Careers</a></li>
+                        <li><a href="contact.html" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- Contact Info -->
+                <div class="col-md-4">
+                    <h6 class="font-weight-bold text-uppercase mb-2">Contact Us</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-map-marker-alt"></i> 1234, Main Street, City, Country</li>
+                        <li><i class="fas fa-phone-alt"></i> +1 (123) 456-7890</li>
+                        <li><i class="fas fa-envelope"></i> info@example.com</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="row mt-3">
+                <div class="col text-center small">
+                    <p class="mb-0">© 2024 Your Company. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Details</title>
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        .details div {
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-back {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Meeting Details</h2>
+
+        <div class="details">
+            <div><strong>Enquiry Ref No:</strong> {{ meeting.enquiry_ref_no }}</div>
+            <div><strong>Agenda:</strong> {{ meeting.agenda }}</div>
+            <div><strong>Date & Time:</strong> {{ meeting.date_time|date:"F d, Y h:i A" }}</div>
+            <div><strong>Department:</strong> {{ meeting.department }}</div>
+            <div><strong>Additional Information:</strong> {{ meeting.additional_information|default:"N/A" }}</div>
+        </div>
+
+        <h3>Attendees</h3>
+        {% if meeting.attendees.exists %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Designation</th>
+                        <th>Contact Number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendee in meeting.attendees.all %}
+                        <tr>
+                            <td>{{ attendee.name }}</td>
+                            <td>{{ attendee.email }}</td>
+                            <td>{{ attendee.designation }}</td>
+                            <td>{{ attendee.contact_number }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No attendees for this meeting.</p>
+        {% endif %}
+
+        <a href="{% url 'meeting_list' %}" class="btn-back">Back to Meeting List</a>
+    </div>
+</body>
+</html>

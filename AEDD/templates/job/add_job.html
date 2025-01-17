@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Job</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Add Job</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <!-- Form Group for Each Field -->
+            <div class="form-group">
+                <label for="title">Job Title</label>
+                <input type="text" name="title" class="form-control" id="title" value="{{ form.title.value|default_if_none:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="description">Job Description</label>
+                <textarea name="description" class="form-control" id="description" rows="10">{{ form.description.value|default_if_none:'' }}</textarea>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" name="company" class="form-control" id="company" value="{{ form.company.value|default_if_none:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" class="form-control" id="location" value="{{ form.location.value|default_if_none:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="text" name="salary" class="form-control" id="salary" value="{{ form.salary.value|default_if_none:'' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="experience">Experience</label>
+                <input type="text" name="experience" class="form-control" id="experience" value="{{ form.experience.value|default_if_none:'' }}">
+            </div>
+
+            <!-- Application Deadline -->
+            <div class="form-group">
+                <label for="application_deadline">Application Deadline</label>
+                <input type="date" name="application_deadline" class="form-control" id="application_deadline" value="{{ form.application_deadline.value|default_if_none:'' }}">
+            </div>
+
+            <!-- Is Active Checkbox -->
+            <div class="form-group form-check">
+                <input type="checkbox" name="is_active" class="form-check-input" id="is_active" {% if form.is_active.value %}checked{% endif %}>
+                <label class="form-check-label" for="is_active">Active</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Optional JavaScript; Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

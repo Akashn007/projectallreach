@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+/*  client_directory.html */
+
+/* .container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+h1 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table thead th {
+    background-color: #007BFF;
+    color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.add-btn {
+    display: block;
+    width: 100px;
+    margin: 0 auto;
+    padding: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.add-btn:hover {
+    background-color: #0056b3;
+}
+
+.add-btn a {
+    color: inherit; /* Inherit the button's color */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Ensures the <a> behaves as part of the button */
+}
+
+/* add_cdc.html */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, textarea, select {
+    margin-top: 5px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.group {
+    margin-top: 10px;
+}
+
+.entry {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.entry input, .entry textarea {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+.add-more, .remove-entry {
+    padding: 5px 10px;
+    font-size: 14px;
+
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-more {
+    background-color: #28a745;
+}
+
+.add-more:hover {
+    background-color: #218838;
+}
+
+.remove-entry {
+    background-color: #dc3545;
+}
+
+.remove-entry:hover {
+    background-color: #c82333;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    min-width: 60px;
+    color: #ffffff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* dashboard.html */
+.main-heading {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-top: 30px;
+}
+
+/* Section styles */
+.section {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.admin {
+    border-left: 5px solid #3498db;
+}
+
+.business-dev {
+    border-left: 5px solid #e67e22;
+}
+
+.technical {
+    border-left: 5px solid #2ecc71;
+}
+
+.recruitment {
+    border-left: 5px solid #9b59b6;
+}
+
+/* Hover effect for sections */
+.section:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease-in-out;
+}
+
+p {
+    font-size: 1rem;
+    color: #7f8c8d;
+}

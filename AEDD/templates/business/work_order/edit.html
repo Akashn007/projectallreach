@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Work Order</title>
+
+    <!-- Internal CSS for styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #ccc;
+            color: black;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #bbb;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Edit Work Order - {{ work_order.po_number }}</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="po_number">PO Number</label>
+                {{ form.po_number }}
+            </div>
+
+            <div class="form-group">
+                <label for="date">Date</label>
+                {{ form.date }}
+            </div>
+
+            <div class="form-group">
+                <label for="scope_of_work">Scope of Work</label>
+                {{ form.scope_of_work }}
+            </div>
+
+            <div class="form-group">
+                <label for="scope_of_work_image">Scope of Work Image</label>
+                {{ form.scope_of_work_image }}
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+
+        <div class="button-container">
+            <a href="{% url 'work_order_detail' pk=work_order.pk %}" class="back-button">Cancel</a>
+        </div>
+    </div>
+</body>
+</html>

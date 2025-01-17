@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Work Order Details</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+    
+        <!-- PO Number -->
+        <label for="po_number">PO Number:</label>
+        {{ form.po_number }}
+        {% if form.po_number.errors %}
+            <ul>
+                {% for error in form.po_number.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <!-- Date -->
+        <label for="date">Date:</label>
+        <input type="date" name="date" id="id_date" value="{{ form.date.value|default:'' }}">
+        {% if form.date.errors %}
+            <ul>
+                {% for error in form.date.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
+        <!-- Scope of Work -->
+        <label for="scope_of_work">Scope of Work:</label>
+        {{ form.scope_of_work }}
+        {% if form.scope_of_work.errors %}
+            <ul>
+                {% for error in form.scope_of_work.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    
+        <!-- Scope of Work Image -->
+        <label for="scope_of_work_image">Upload Scope of Work Image:</label>
+        {{ form.scope_of_work_image }}
+        {% if form.scope_of_work_image.errors %}
+            <ul>
+                {% for error in form.scope_of_work_image.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <!-- Submit Button -->
+        <button type="submit">Save</button>
+    </form>
+    
+    <!-- Optionally display a success message -->
+    {% if form.instance.pk %}
+        <p>Work Order saved successfully!</p>
+    {% endif %}
+    
+    
+    
+
+</body>
+</html>
+
+

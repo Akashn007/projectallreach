@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Meeting</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-save {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #45a049;
+        }
+
+        .btn-cancel {
+            background-color: #FF5252;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background-color: #e53935;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Meeting</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="enquiry_ref_no">Enquiry Ref No</label>
+                <input type="text" id="enquiry_ref_no" name="enquiry_ref_no" value="{{ form.enquiry_ref_no.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="agenda">Agenda</label>
+                <textarea id="agenda" name="agenda" rows="3" required>{{ form.agenda.value }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="date_time">Date & Time</label>
+                <input type="datetime-local" id="date_time" name="date_time" value="{{ form.date_time.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" name="department" value="{{ form.department.value }}" required>
+            </div>
+            <div class="form-group">
+                <label for="additional_information">Additional Information</label>
+                <textarea id="additional_information" name="additional_information" rows="3">{{ form.additional_information.value }}</textarea>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-save">Save Changes</button>
+                <a href="{% url 'meeting_list' %}" class="btn btn-cancel">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

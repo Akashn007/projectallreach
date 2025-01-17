@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Scheduling Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea, button {
+            margin-top: 5px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="date"], input[type="time"] {
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 15px;
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Schedule an Interview</h1>
+    
+        <form id="scheduleForm">
+            <label for="candidateName">Candidate Name:</label>
+            <input type="text" id="candidateName" name="candidateName" placeholder="Enter candidate's name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter candidate's email" required>
+
+            <label for="position">Position:</label>
+            <select id="position" name="position" required>
+                <option value="">--Select Position--</option>
+                <option value="developer">Developer</option>
+                <option value="designer">Designer</option>
+                <option value="manager">Manager</option>
+            </select>
+
+            <label for="date">Interview Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="time">Interview Time:</label>
+            <input type="time" id="time" name="time" required>
+
+            <label for="notes">Additional Notes:</label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Enter any additional details..."></textarea>
+
+            <button type="submit">Schedule Interview</button>
+
+            <div id="message" class="message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('message').textContent = 'Interview scheduled successfully!';
+        });
+    </script>
+</body>
+</html>

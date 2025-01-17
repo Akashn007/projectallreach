@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotation List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #444;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-links a {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .action-links a:hover {
+            background-color: #0056b3;
+        }
+
+        .create-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px 0;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .create-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Quotation List</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Enquiry Ref</th>
+                <th>Quotation No</th>
+                <th>Company Name</th>
+                <th>Company GST No</th>
+                <th>Quotation Date</th>
+                <th>Validity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for quotation in quotations %}
+            <tr>
+                <td>{{ quotation.enquiry_ref.enquiry_ref_no }}</td>
+                <td>{{ quotation.quotation_no }}</td>
+                <td>{{ quotation.company_name }}</td>
+                <td>{{ quotation.company_gst_no }}</td>
+                <td>{{ quotation.quotation_date }}</td>
+                <td>{{ quotation.quotation_validity }}</td>
+                <td class="action-links">
+                    <a href="{% url 'quotation_details' quotation.id %}">View Details</a>
+                    <a href="{% url 'quo'}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'create_quotation' %}" class="create-btn">Create New Quotation</a>
+</body>
+</html>
