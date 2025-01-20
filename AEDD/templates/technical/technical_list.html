@@ -17,10 +17,18 @@
     </style>
     <div class="container my-4">
         <h2 class="text-center">Technical Forms List</h2>
+        <!-- Search Bar -->
+        <form method="GET" action="{% url 'technical_table_view' %}" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="search" placeholder="Search..." value="{{ request.GET.search }}">
+                <button type="submit">Search</button>
+            </div>
+        </form>
 
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
+                    <th>Company name</th>
                     <th>Project Number</th>
                     <th>Work Order Date</th>
                     <th>Project Plan</th>
@@ -32,11 +40,15 @@
                     <th>Project Team Members</th>
                     <th>PTM Roles</th>
                     <th>Project Status</th>
+                    <th>View</th>
+                    <th>Edit</th>
+                    <th>delete</th>
                 </tr>
             </thead>
             <tbody>
                 {% for form in forms %}
                 <tr>
+                    <td>{{ form.client }}</td>
                     <td>{{ form.project_no }}</td>
                     <td>{{ form.work_order_date }}</td>
                     <td>{{ form.project_plan }}</td>
@@ -84,6 +96,11 @@
                             {% endfor %}
                         </ul>
                     </td>
+                    <td>
+                        <button><a href="{% url 'view_technical_form' form.id %}">View</a></button>
+                    </td>
+                    <td><button><a href="{% url 'edit_technical_form' form.id %}">Edit</a></button></td>
+                    <td><button><a href="{% url 'delete_technical_form' form.id %}" onclick="return confirm('Are you sure?')">Delete</a></button></td>
                 </tr>
                 {% endfor %}
             </tbody>

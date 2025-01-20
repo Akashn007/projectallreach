@@ -88,10 +88,9 @@
         </div>
 
         {% if work_order.scope_of_work_image %}
-            <div class="detail-section">
-                <h2>Scope of Work Image:</h2>
-                <img src="{{ work_order.scope_of_work_image.url }}" alt="Scope of Work Image">
-            </div>
+        <div>
+           <img src="{{ work_order.scope_of_work_image.url }}" alt="Scope of Work Image">
+        </div>
         {% else %}
             <p>No image available for this work order.</p>
         {% endif %}

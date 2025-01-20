@@ -21,11 +21,14 @@ class TechnicalStaffForm(forms.ModelForm):
 
 from django import forms
 from .models import Enquiry
+from myapp.models import Client
+
 
 class EnquiryForm(forms.ModelForm):
     class Meta:
         model = Enquiry
         fields = [
+            'client',
             'trading_services', 
             'design_and_development', 
             'software_design_and_dev_engineering_analysis', 
@@ -34,6 +37,7 @@ class EnquiryForm(forms.ModelForm):
             'additional_information'
         ]
         widgets = {
+            'client': forms.Select(attrs={'class': 'form-control'}),
             'trading_services': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Enter Trading Services details'}),
             'design_and_development': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Enter Design & Development details'}),
             'software_design_and_dev_engineering_analysis': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Enter Software Design & Engineering Analysis details'}),
@@ -89,7 +93,7 @@ class AttendeeForm(forms.ModelForm):
 class MeetingForm(forms.ModelForm):
     class Meta:
         model = Meeting
-        fields = ['enquiry_ref_no', 'agenda', 'date_time', 'department', 'additional_information']
+        fields = ['client','enquiry_ref_no', 'agenda', 'date_time', 'department', 'additional_information']
 
     # To handle multiple attendees
     attendees = forms.CharField(widget=forms.HiddenInput(), required=False)
@@ -102,4 +106,4 @@ from .models import WorkOrder
 class WorkOrderForm(forms.ModelForm):
     class Meta:
         model = WorkOrder
-        fields = ['po_number', 'date', 'scope_of_work', 'scope_of_work_image']
+        fields = ['client','enquiry','po_number', 'date', 'scope_of_work', 'scope_of_work_image']

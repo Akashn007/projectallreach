@@ -4,7 +4,7 @@ from .models import TechnicalForm, ScopeOfWork, ProjectTeamLeader, PTLRoles, Pro
 class TechnicalFormForm(forms.ModelForm):
     class Meta:
         model = TechnicalForm
-        fields = ['project_no', 'work_order_date', 'project_plan', 'due_date', 'additional_info']
+        fields = ['client','project_no', 'work_order_date', 'project_plan', 'due_date', 'additional_info']
 
 class ScopeOfWorkForm(forms.ModelForm):
     class Meta:
@@ -35,3 +35,8 @@ class ProjectStatusForm(forms.ModelForm):
     class Meta:
         model = ProjectStatus
         fields = ['status']
+
+class TechnicalFormEditForm(forms.ModelForm):
+    class Meta:
+        model = TechnicalForm
+        fields = ['project_no', 'work_order_date', 'project_plan', 'due_date', 'additional_info', 'client']

@@ -48,6 +48,12 @@
         <form method="POST" action="{% url 'meeting_create' %}">
             {% csrf_token %}
             <div class="form-group">
+                <label for="client">Company Name</label>
+                {{ form.client }}  <!-- This will render the company dropdown -->
+            </div>
+    
+            
+            <div class="form-group">
                 <label for="enquiry_ref_no">Enquiry Ref No</label>
                 <input type="text" id="enquiry_ref_no" name="enquiry_ref_no" required>
             </div>

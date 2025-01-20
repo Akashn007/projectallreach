@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            background-color: #f9f9f9;
         }
 
         h2, h3 {
@@ -15,41 +16,87 @@
         }
 
         form {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
 
         label {
             margin-right: 10px;
+            font-weight: bold;
         }
 
-        input, select {
+        select, input, button {
             margin-bottom: 10px;
-            padding: 5px;
-            width: calc(100% - 20px);
+            padding: 10px;
+            width: calc(100% - 22px);
+            border-radius: 4px;
+            border: 1px solid #ccc;
         }
 
         button {
-            margin-top: 10px;
-            padding: 5px 10px;
             background-color: #007BFF;
             color: white;
-            border: none;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #0056b3;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         .pricing-item, .term-item {
             display: flex;
             gap: 10px;
             margin-bottom: 10px;
+            flex-wrap: wrap;
         }
 
         .pricing-item input, .term-item input {
             flex: 1;
+            width: 100%;
+        }
+
+        .pricing-item button, .term-item button {
+            margin-top: 15px;
+            background-color: #dc3545;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .pricing-item button:hover, .term-item button:hover {
+            background-color: #c82333;
+        }
+
+        .add-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .add-btn:hover {
+            background-color: #218838;
+        }
+
+        .form-group select, .form-group input {
+            width: 100%;
         }
     </style>
 </head>
@@ -81,7 +128,7 @@
                 <button type="button" onclick="removeItem(this)">Remove</button>
             </div>
         </div>
-        <button type="button" onclick="addPricing()">Add Pricing</button>
+        <button type="button" class="add-btn" onclick="addPricing()">Add Pricing</button>
 
         <h3>Payment Terms</h3>
         <div id="payment-terms-container">
@@ -90,7 +137,7 @@
                 <button type="button" onclick="removeItem(this)">Remove</button>
             </div>
         </div>
-        <button type="button" onclick="addTerm('payment-terms-container', 'payment_terms[]')">Add Payment Term</button>
+        <button type="button" class="add-btn" onclick="addTerm('payment-terms-container', 'payment_terms[]')">Add Payment Term</button>
 
         <h3>Other Terms</h3>
         <div id="other-terms-container">
@@ -99,9 +146,9 @@
                 <button type="button" onclick="removeItem(this)">Remove</button>
             </div>
         </div>
-        <button type="button" onclick="addTerm('other-terms-container', 'other_terms[]')">Add Other Term</button>
+        <button type="button" class="add-btn" onclick="addTerm('other-terms-container', 'other_terms[]')">Add Other Term</button>
 
-        <button type="submit">Save Quotation</button>
+        <button type="submit" class="add-btn">Save Quotation</button>
     </form>
 
     <script>

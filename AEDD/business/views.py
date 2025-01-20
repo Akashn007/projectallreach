@@ -8,6 +8,7 @@ def business_dashboard(request):
 #enquiry/akash
 from django.shortcuts import render, redirect
 from .models import Meeting, Enquiry, Graphic, Technical_staff
+from myapp.models import Client
 
 def add_enquiry_form(request):
     if request.method == "POST":
@@ -15,8 +16,12 @@ def add_enquiry_form(request):
         meeting_id = request.POST.get("enquiry_ref_no")
         meeting = Meeting.objects.get(id=meeting_id)
 
+        client_id = request.POST.get("client_id")
+        client = Client.objects.get(id=client_id)
+
         # Create an Enquiry instance
         enquiry = Enquiry.objects.create(
+            client=client,
             enquiry=meeting,
             trading_services=request.POST.get("trading_services"),
             design_and_development=request.POST.get("design_and_development"),
@@ -42,18 +47,35 @@ def add_enquiry_form(request):
 
     # Fetch all Meeting instances for the dropdown
     meetings = Meeting.objects.all()
-    return render(request, "business/enquiry/enquiry_rfq_form.html", {"meetings": meetings})
+    clients = Client.objects.all()
+    return render(request, "business/enquiry/enquiry_rfq_form.html", {"meetings": meetings, "clients": clients})
 
 
 
 # View to display the list of Graphic and Technical details
 def enquiry_rfq_list(request):
-    # Prefetch related objects for optimized queries
+    # Get the search term from query parameters
+    search_query = request.GET.get('q', '')
+
+    # Base queryset with related objects prefetching for optimized queries
     enquiries = Enquiry.objects.prefetch_related(
-        'enquiry__graphic_designs',  # Fetch graphics related to the Meeting
-        'enquiry__technical_staffing'  # Fetch technical staff related to the Meeting
-    ).all()
-    return render(request, 'business/enquiry/enquiry_rfq_list.html', {'enquiries': enquiries})
+        'client',
+        'enquiry__graphic_designs',
+        'enquiry__technical_staffing'
+    )
+
+    # Apply filtering if a search query is provided
+    if search_query:
+        enquiries = enquiries.filter(
+            enquiry__enquiry_ref_no__icontains=search_query
+        )  # Adjusted to ensure the query matches the correct field.
+
+    # Render the template with enquiries and the search query for input retention
+    return render(
+        request,
+        'business/enquiry/enquiry_rfq_list.html',
+        {'enquiries': enquiries, 'search_query': search_query}
+    )
 
 
 
@@ -114,12 +136,27 @@ def create_quotation(request):
 
 # View to list all quotations
 def quotation_list(request):
+    search_query = request.GET.get('q', '')  # Capture search query from the GET parameters
+
+    # Filter quotations based on search query
+    if search_query:
+        quotations = Quotation.objects.filter(quotation_no__icontains=search_query)  # Example: search by quotation number
+    else:
+        quotations = Quotation.objects.all()
+
     meetings = Meeting.objects.all()
-    quotations = Quotation.objects.all()
     quotationdetails = QuotationDetails.objects.all()
     payment_terms = PaymentTerm.objects.all()
     other_terms = OtherTerm.objects.all()
-    return render(request, 'business/quotation/quotation_list.html', {'quotations': quotations,'quotationdetails':quotationdetails, 'payment_terms':payment_terms,'other_terms':other_terms,'meetings':meetings})
+
+    return render(request, 'business/quotation/quotation_list.html', {
+        'quotations': quotations,
+        'quotationdetails': quotationdetails,
+        'payment_terms': payment_terms,
+        'other_terms': other_terms,
+        'meetings': meetings,
+        'search_query': search_query
+    })
 def view_details(request, quotation_id):
     quotation = get_object_or_404(Quotation, pk=quotation_id)
     return render(request, 'business/quotation/quotation_view.html', {'quotation': quotation})
@@ -153,9 +190,32 @@ from django.http import JsonResponse
 from .forms import MeetingForm,AttendeeForm
 from .models import Meeting, MeetingAttendee
 
+from django.shortcuts import render
+from .models import Meeting
+
+def filter_meetings_by_ref_no(query):
+    """
+    Filters meetings based on the enquiry reference number.
+    :param query: The search query string.
+    :return: A queryset of filtered meetings.
+    """
+    if query:
+        return Meeting.objects.select_related('client').filter(enquiry_ref_no__icontains=query)
+    return Meeting.objects.select_related('client').all()
+
 def meeting_list(request):
-    meetings = Meeting.objects.all()
-    return render(request, 'business/meeting/meeting_list.html', {'meetings': meetings})
+    # Get the search query from the GET request
+    query = request.GET.get('search', '')
+
+    # Use the filter function to get the filtered meetings
+    meetings = filter_meetings_by_ref_no(query)
+
+    # Render the results in the template
+    return render(request, 'business/meeting/meeting_list.html', {
+        'meetings': meetings,
+        'query': query,  # Pass the search query back to the template
+    })
+
 
 
 def create_meeting(request):
@@ -196,9 +256,10 @@ def create_meeting(request):
 
     else:
         meeting_form = MeetingForm()
+    clients = Client.objects.all()
 
     # If GET or form invalid, render the form again
-    return render(request, 'business/meeting/meeting_form.html', {'form': meeting_form})
+    return render(request, 'business/meeting/meeting_form.html', {'form': meeting_form,'clients': clients})
 
 def meeting_detail(request, meeting_id):
     meeting = get_object_or_404(Meeting, id=meeting_id)

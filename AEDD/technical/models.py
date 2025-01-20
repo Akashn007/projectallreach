@@ -6,7 +6,7 @@ class TechnicalForm(models.Model):
     project_plan = models.TextField()
     due_date = models.DateField()
     additional_info = models.TextField(blank=True, null=True)
-
+    client = models.ForeignKey('myapp.Client', on_delete=models.CASCADE, null=True, blank=True)
 class ScopeOfWork(models.Model):
     technical_form = models.ForeignKey(TechnicalForm, on_delete=models.CASCADE, related_name='scope_of_work')
     description = models.TextField()

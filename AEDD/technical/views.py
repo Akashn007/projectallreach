@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TechnicalFormForm
 from .models import ScopeOfWork, ProjectTeamLeader, PTLRoles, ProjectTeamMember, PTMRoles, ProjectStatus
 
@@ -50,15 +50,57 @@ def techform_view(request):
 
 from django.shortcuts import render
 from .models import TechnicalForm
-
+from django.db.models import Q
 def technical_table_view(request):
-    technical_forms = TechnicalForm.objects.prefetch_related(
-        'scope_of_work',
-        'project_team_leaders',
-        'ptl_roles',
-        'project_team_members',
-        'ptm_roles',
-        'project_status'
-    ).all()
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        technical_forms = TechnicalForm.objects.filter(
+            Q(client__company_name__icontains=search_query) |  # Replace with the actual field name
+            Q(project_no__icontains=search_query) |
+            Q(project_plan__icontains=search_query)
+        ).prefetch_related(
+            'scope_of_work',
+            'project_team_leaders',
+            'ptl_roles',
+            'project_team_members',
+            'ptm_roles',
+            'project_status'
+        )
+    else:
+        technical_forms = TechnicalForm.objects.prefetch_related(
+            'scope_of_work',
+            'project_team_leaders',
+            'ptl_roles',
+            'project_team_members',
+            'ptm_roles',
+            'project_status'
+        ).all()
+
     return render(request, 'technical/technical_list.html', {'forms': technical_forms})
+
+
+from .forms import TechnicalFormEditForm
+
+def edit_technical_form(request, form_id):
+    technical_form = get_object_or_404(TechnicalForm, id=form_id)
+    if request.method == 'POST':
+        form = TechnicalFormEditForm(request.POST, instance=technical_form)
+        if form.is_valid():
+            form.save()
+            return redirect('technical_table_view')  # Redirect to list view after saving
+    else:
+        form = TechnicalFormEditForm(instance=technical_form)
+    return render(request, 'technical/edit_technical.html', {'form': form})
+
+def view_technical_form(request, form_id):
+    technical_form = get_object_or_404(TechnicalForm, id=form_id)
+    return render(request, 'technical/view_technical.html', {'form': technical_form})
+
+def delete_technical_form(request, form_id):
+    technical_form = get_object_or_404(TechnicalForm, id=form_id)
+    if request.method == 'POST':
+        technical_form.delete()
+        return redirect('technical_table_view')  # Redirect to list after deleting
+    return render(request, 'technical/delete_technical.html', {'form': technical_form})
 

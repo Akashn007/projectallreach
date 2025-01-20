@@ -17,7 +17,7 @@ class ApplicantForm(forms.ModelForm):
             'college_name', 'year_of_grad', 'degree', 'stream',
             'cgpa', 'company_name', 'start_date', 'end_date', 'is_current_company',
             'work_exp', 'company_loc', 'location', 'address', 'state', 'country',
-            'resume'
+            'resume','job'
         ]
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),
@@ -31,5 +31,5 @@ from .models import Interview
 class InterviewForm(forms.ModelForm):
     class Meta:
         model = Interview
-        fields = ['candidate_name', 'email', 'position', 'interview_date', 'interview_time', 'notes']
+        fields = ['candidate', 'email', 'position', 'interview_date', 'interview_time', 'notes']
        

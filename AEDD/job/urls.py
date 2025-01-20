@@ -25,6 +25,12 @@ urlpatterns = [
     path('interview/',views.rs_process,name='interview'),
     path('rsprocess/',views.recruit_process,name='rs process'),
     path('schedule_interview/', views.schedule_interview, name='schedule_interview'),
+    path('interview_list/', views.interview_list, name='interview_list'),
+
+
+    path('job/shortlist/<int:interview_id>/', views.shortlist_applicant, name='shortlist_applicant'),
+    path('shortlisted/', views.shortlisted_applicants, name='shortlisted_applicants'),
+    path('delete/<int:id>/', views.delete_applicant, name='delete_applicant'),
 
 
 

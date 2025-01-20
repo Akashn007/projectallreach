@@ -87,6 +87,8 @@
     <table>
         <thead>
             <tr>
+                <th>Company Name</th>
+                <th>Enquiry ref.no</th>
                 <th>PO No.</th>
                 <th>Date</th>
                 <th>Scope of Work</th>
@@ -96,6 +98,8 @@
         <tbody>
             {% for work_order in work_orders %}
             <tr>
+                <td>{{ work_order.client }}</td>
+                <td>{{ work_order.enquiry }}</td>
                 <td>{{ work_order.po_number }}</td>
                 <td>{{ work_order.date }}</td>
                 <td>{{ work_order.scope_of_work }}</td>

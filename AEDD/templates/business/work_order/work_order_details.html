@@ -61,7 +61,27 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         
+        <!-- Company Name Dropdown -->
+    <label for="client">Company Name:</label>
+    {{ form.client }}
+    {% if form.client.errors %}
+        <ul>
+            {% for error in form.client.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     
+    <!-- Enquiry Reference Number Dropdown -->
+    <label for="enquiry">Enquiry Reference Number:</label>
+    {{ form.enquiry }}
+    {% if form.enquiry.errors %}
+        <ul>
+            {% for error in form.enquiry.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
         <!-- PO Number -->
         <label for="po_number">PO Number:</label>
         {{ form.po_number }}

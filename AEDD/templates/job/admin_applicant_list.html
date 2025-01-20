@@ -114,9 +114,7 @@
                     <td>
                         <a href="{% url 'delete_applicant' applicant.id %}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this applicant?');">Delete</a>
                     </td>
-                    <td>
-                        <a href="{% url 'shortlist_applicant' applicant.id %}" class="btn btn-success">Shortlist</a>
-                    </td>
+                   
                 </tr>
                 {% endfor %}
             </tbody>

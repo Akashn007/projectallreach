@@ -3,32 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shortlisted Candidates</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
     <h1>Shortlisted Applicants</h1>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Position</th>
-            <th>Shortlisted Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for item in shortlisted %}
-        <tr>
-            <td>{{ item.applicant.name }}</td>
-            <td>{{ item.applicant.email }}</td>
-            <td>{{ item.applicant.phone }}</td>
-            <td>{{ item.applicant.applied_position }}</td>
-            <td>{{ item.shortlisted_date }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-
+    <table>
+        <thead>
+            <tr>
+                <th>Candidate Name</th>
+                <th>Email</th>
+                <th>Position</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for applicant in shortlisted %}
+                <tr>
+                    <td>{{ applicant.candidate }}</td>
+                    <td>{{ applicant.candidate.email }}</td>
+                    <td>{{ applicant.interview.position }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
 </body>
 </html>

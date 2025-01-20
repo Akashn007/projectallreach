@@ -71,14 +71,19 @@
 <body>
     <div class="container">
         <h1>Schedule an Interview</h1>
-    
-        <form id="scheduleForm">
+        <form id="scheduleForm" method="post">
+            {% csrf_token %}
             <label for="candidateName">Candidate Name:</label>
-            <input type="text" id="candidateName" name="candidateName" placeholder="Enter candidate's name" required>
-
+            <select id="candidateName" name="candidate" required>
+                <option value="" disabled selected>Select a candidate</option>
+                {% for applicant in applicants %}
+                <option value="{{ applicant.id }}">{{ applicant.prefix }} {{ applicant.name }}</option>
+                {% endfor %}
+            </select>
+    
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Enter candidate's email" required>
-
+    
             <label for="position">Position:</label>
             <select id="position" name="position" required>
                 <option value="">--Select Position--</option>
@@ -86,26 +91,44 @@
                 <option value="designer">Designer</option>
                 <option value="manager">Manager</option>
             </select>
-
-            <label for="date">Interview Date:</label>
-            <input type="date" id="date" name="date" required>
-
-            <label for="time">Interview Time:</label>
-            <input type="time" id="time" name="time" required>
-
+    
+            <label for="interview_date">Interview Date:</label>
+            <input type="date" id="interview_date" name="interview_date" required>
+    
+            <label for="interview_time">Interview Time:</label>
+            <input type="time" id="interview_time" name="interview_time" required>
+    
             <label for="notes">Additional Notes:</label>
             <textarea id="notes" name="notes" rows="4" placeholder="Enter any additional details..."></textarea>
-
+    
             <button type="submit">Schedule Interview</button>
-
-            <div id="message" class="message"></div>
         </form>
+        <button><a href="{% url 'interview_list' %}">Go to List</a></button>
     </div>
+    
 
     <script>
+        // Ensuring the form works and gives feedback on submission
         document.getElementById('scheduleForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('message').textContent = 'Interview scheduled successfully!';
+            e.preventDefault();  // Prevent form from default submission
+    
+            // Create a FormData object and send it with fetch
+            var form = new FormData(document.getElementById('scheduleForm'));
+            fetch("{% url 'schedule_interview' %}", {
+                method: 'POST',
+                body: form
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    document.getElementById('message').textContent = data.message;
+                } else if (data.errors) {
+                    document.getElementById('message').textContent = JSON.stringify(data.errors);
+                }
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error: ' + error;
+            });
         });
     </script>
 </body>

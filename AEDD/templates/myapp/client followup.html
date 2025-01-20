@@ -80,6 +80,12 @@
 <body>
   <h1>Client Follow-Up Page</h1>
 
+  <!-- Search Form -->
+  <form method="get" action="" style="margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Search by company, department, or contact person..." value="{{ query }}" style="width: 300px; padding: 5px;">
+    <button type="submit" style="padding: 5px 10px;">Search</button>
+</form>
+
   <h3>Follow-Up Records</h3>
   <table id="recordsTable">
     <thead>

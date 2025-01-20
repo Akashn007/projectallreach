@@ -58,13 +58,14 @@ class Applicant(models.Model):
 
     resume=models.FileField(upload_to='resumes/')
     applied_at=models.DateTimeField(auto_now_add=True)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='applicants',null=True)
     
     def __str__(self):
         return f"{self.prefix} {self.name}"
     
 #recruit/anusha
 class Interview(models.Model):
-    candidate_name = models.CharField(max_length=255)
+    candidate = models.ForeignKey(Applicant, on_delete=models.CASCADE, related_name="interviews",null=True)
     email = models.EmailField()
     position = models.CharField(max_length=50)
     interview_date = models.DateField()
@@ -72,12 +73,13 @@ class Interview(models.Model):
     notes = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.candidate_name} - {self.position}"
+        return f"{self.candidate} - {self.position}"
 
 
 class ShortlistedApplicant(models.Model):
-    applicant = models.OneToOneField(Applicant, on_delete=models.CASCADE)
-    shortlisted_date = models.DateTimeField(auto_now_add=True)
+    candidate = models.ForeignKey(Applicant, on_delete=models.CASCADE, null=True, related_name="shortlisted_applicants")
+    interview = models.ForeignKey(Interview, on_delete=models.CASCADE, null=True, related_name="shortlisted_applicants")
 
     def __str__(self):
-        return self.applicant.name
+        return f"{self.candidate.name} - {self.interview.position}"
+

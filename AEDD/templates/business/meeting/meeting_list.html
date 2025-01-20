@@ -97,12 +97,29 @@
 <body>
 
     <div class="container">
+        
         <h2>Meeting List</h2>
+
+        <!-- Search Form -->
+    <form method="GET" action="{% url 'meeting_list' %}">
+        <div class="form-group">
+            <label for="search">Search by Enquiry Ref No:</label>
+            <input 
+                type="text" 
+                id="search" 
+                name="search" 
+                value="{{ query }}" 
+                placeholder="Enter reference number" 
+                class="form-control">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
 
         {% if meetings %}
             <table>
                 <thead>
                     <tr>
+                        <th>Company Name</th>
                         <th>Enquiry Ref No</th>
                         <th>Agenda</th>
                         <th>Date & Time</th>
@@ -114,6 +131,7 @@
                 <tbody>
                     {% for meeting in meetings %}
                         <tr>
+                            <td>{{ meeting.client.company_name }}</td>
                             <td>{{ meeting.enquiry_ref_no }}</td>
                             <td>{{ meeting.agenda|slice:":50" }}...</td>
                             <td>{{ meeting.date_time|date:"F d, Y h:i A" }}</td>

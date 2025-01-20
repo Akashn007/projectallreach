@@ -3,7 +3,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import ApplicantForm, JobForm
 from rest_framework import generics, viewsets
-from .models import Job, Applicant,ShortlistedApplicant
+from .models import Job, Applicant,ShortlistedApplicant,Interview
 from .serializers import Jobserializer, ApplicantSerializer
 from django.conf import settings
 from django.http import HttpResponse, FileResponse
@@ -116,10 +116,15 @@ def schedule_interview(request):
         form = InterviewForm(request.POST)
         if form.is_valid():
             form.save()
+            print("Interview scheduled successfully")
             return JsonResponse({'message': 'Interview scheduled successfully!'}, status=201)
+        else:
+            # Return errors if the form is invalid
+            return JsonResponse({'errors': form.errors}, status=400)
     else:
         form = InterviewForm()
-    return render(request, 'job/recruit/setup interview.html', {'form': form})
+        applicants = Applicant.objects.all() 
+    return render(request, 'job/recruit/setup interview.html', {'form': form, 'applicants': applicants})
 
 def rs_process(request):
     return render(request,'job/recruit/R & S process.html')
@@ -129,14 +134,26 @@ def recruit_process(request):
 
 
 
-def shortlist_applicant(request, applicant_id):
-    applicant = get_object_or_404(Applicant, id=applicant_id)
-    # Create a new ShortlistedApplicant entry
-    ShortlistedApplicant.objects.create(applicant=applicant)
-    # Optionally, you can delete the applicant from the original table
-    applicant.delete()
-    return redirect('applicant_list')
+def shortlist_applicant(request, interview_id):
+    # Get the interview instance based on interview_id
+    interview = get_object_or_404(Interview, id=interview_id)
 
+    # Create a shortlisted applicant
+    ShortlistedApplicant.objects.create(
+        candidate=interview.candidate,
+        interview=interview
+    )
+
+    # Optionally, return a success message or redirect
+    return redirect('interview_list')
 def shortlisted_applicants(request):
     shortlisted = ShortlistedApplicant.objects.all()
-    return render(request, 'shortlist.html', {'shortlisted': shortlisted})
+    return render(request, 'job/recruit/shortlisted.html', {'shortlisted': shortlisted})
+def interview_list(request):
+    interviews = Interview.objects.select_related('candidate').all()  # Fetch interviews with related candidate details
+    return render(request, 'job/recruit/Recruit List.html', {'interviews': interviews})
+
+def delete_applicant(request, id):
+    interview = get_object_or_404(Interview, id=id)
+    interview.delete()
+    return redirect('interview_list')

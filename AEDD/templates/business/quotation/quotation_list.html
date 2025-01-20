@@ -85,10 +85,44 @@
         .create-btn:hover {
             background-color: #218838;
         }
+        .search-container {
+            width: 90%;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 8px;
+            width: 250px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-right: 8px;
+            outline: none;
+        }
+
+        .search-container button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h2>Quotation List</h2>
+    <div class="search-container">
+        <form method="GET" action="">
+            <input type="text" name="q" value="{{ search_query|default_if_none:'' }}" placeholder="Search by Quotation No">
+            <button type="submit">Search</button>
+        </form>
+    </div>
     
     <table>
         <thead>

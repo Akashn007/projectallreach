@@ -13,6 +13,7 @@ class MeetingAttendee(models.Model):
 
 
 class Meeting(models.Model):
+    client = models.ForeignKey('myapp.Client', on_delete=models.CASCADE, null=True, blank=True)
     enquiry_ref_no = models.CharField(max_length=50)
     agenda = models.TextField()
     attendees = models.ManyToManyField(MeetingAttendee, related_name='meetings')
@@ -26,7 +27,10 @@ class Meeting(models.Model):
 
 
 class Enquiry(models.Model):
+    
     enquiry = models.ForeignKey(Meeting, on_delete=models.CASCADE, related_name='enquiries',null=True, blank=True)
+    client = models.ForeignKey('myapp.Client', on_delete=models.CASCADE, null=True, blank=True)
+
     trading_services = models.TextField(blank=True, null=True)
     design_and_development = models.TextField(blank=True, null=True)
     software_design_and_dev_engineering_analysis = models.TextField(blank=True, null=True)
@@ -125,7 +129,8 @@ class WorkOrder(models.Model):
     date = models.DateField()
     scope_of_work = models.TextField()
     scope_of_work_image = models.ImageField(upload_to='scope_of_work_images/', null=True, blank=True)
-
+    enquiry = models.ForeignKey('Meeting', on_delete=models.CASCADE, related_name='workorder', null=True, blank=True)
+    client = models.ForeignKey('myapp.Client', on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.po_number
 

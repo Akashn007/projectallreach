@@ -10,6 +10,13 @@
 <body>
     <div>
         <h1>Client Directory</h1>
+
+                <!-- Search Form -->
+                <form method="get" action="" style="margin-bottom: 20px;">
+                    <input type="text" name="search" placeholder="Search by company, department, or contact person..." value="{{ query }}" style="width: 300px; padding: 5px;">
+                    <button type="submit" style="padding: 5px 10px;">Search</button>
+                </form>
+        
         <table border="1" cellspacing="0" cellpadding="5">
             <thead>
                 <tr>

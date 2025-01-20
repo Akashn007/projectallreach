@@ -46,6 +46,19 @@ def dashboard(request):
 def admin_dashboard(request):
     return render(request,'myapp/admin_dashboard.html')
 
+def client_directory(request):
+    query = request.GET.get('search', '')
+    if query:
+        clients = Client.objects.filter(
+            company_name__icontains=query
+        ) | Client.objects.filter(
+            department__icontains=query
+        ) | Client.objects.filter(
+            contact_person_name__icontains=query
+        )
+    else:
+        clients = Client.objects.all()
+    return render(request, 'myapp/client_directory.html', {'clients': clients, 'query': query})
 
 # client_followup
 from django.shortcuts import render, redirect,get_object_or_404

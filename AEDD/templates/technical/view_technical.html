@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container my-4">
+        <h2>View Technical Form</h2>
+        <table class="table table-bordered">
+            <tr>
+                <th>Project Number</th>
+                <td>{{ form.project_no }}</td>
+            </tr>
+            <tr>
+                <th>Work Order Date</th>
+                <td>{{ form.work_order_date }}</td>
+            </tr>
+            <tr>
+                <th>Project Plan</th>
+                <td>{{ form.project_plan }}</td>
+            </tr>
+            <tr>
+                <th>Due Date</th>
+                <td>{{ form.due_date }}</td>
+            </tr>
+            <tr>
+                <th>Additional Info</th>
+                <td>{{ form.additional_info }}</td>
+            </tr>
+        </table>
+        <a href="{% url 'technical_table_view' %}" class="btn btn-primary">Back to List</a>
+    </div>
+    
+</body>
+</html>
