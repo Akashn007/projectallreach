@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'styles.css' %}"><!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- Link to external stylesheet -->
 </head>
 <body>
+    
     <div class="container">
         <h1 class="main-heading">Admin Dashboard</h1>
 
@@ -37,6 +39,8 @@
             <h2 class="section-title"><a href="{% url 'e-diary-list' %}" style="text-decoration: none;"> E-Dairy Creation</a></h2>
             <p>Create and maintain electronic directories to streamline digital documentation processes.</p>
         </div>
+        <button><a href="{% url 'admin_logout' %}" style="text-decoration: none; color:aliceblue;">Logout</a></button>
+        <button><a href="#" >Manage Credentials</a></button> 
     </div>
 </body>
 </html>

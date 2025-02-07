@@ -1,6 +1,32 @@
 from django.shortcuts import render, redirect
 from .models import Graphic, Technical_staff,Meeting
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
+
+def user_login_business(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.groups.filter(name='BusinessUsers').exists():
+                login(request, user)
+                return redirect('business_dashboard')  # Redirect to the Business dashboard
+            else:
+                messages.error(request, 'You do not have access to the Business section.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'business/login.html')
+
+@login_required(login_url='business_login')
+def business_dashboard(request):
+    return render(request, 'business/business_dashboard.html')
+def user_logout_business(request):
+    logout(request)
+    return redirect('business_login')
 
 def business_dashboard(request):
     return render(request, 'business/business_dashboard.html')

@@ -7,6 +7,14 @@
     <title>Admin Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <style>
+        button{
+            border-radius: 20px;
+            border-style: none;
+            background-color: rgb(39, 108, 212);
+            padding: 0 50px;
+        }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -91,6 +99,7 @@
             </main>
         </div>
     </div>
+    <button><a href="{% url 'recruitment_logout' %}" style="text-decoration: none; color:rgb(239, 235, 235);">Logout</a></button>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

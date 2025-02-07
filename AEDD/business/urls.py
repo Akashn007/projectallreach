@@ -32,7 +32,10 @@ urlpatterns = [
     path('work_order/', views.work_order_details, name='work_order_create'),  # URL for creating a new WorkOrder
     path('work_order/<int:pk>/', views.work_order_view, name='work_order_detail'),
     path('work_order/<int:pk>/edit/', views.work_order_edit, name='work_order_edit'),
-    path('work_order/<int:pk>/delete/', views.work_order_delete, name='work_order_delete')
+    path('work_order/<int:pk>/delete/', views.work_order_delete, name='work_order_delete'),
+
+    path('login/', views.user_login_business, name='business_login'),
+    path('logout/', views.user_logout_business, name='business_logout'),
 
  
 ]

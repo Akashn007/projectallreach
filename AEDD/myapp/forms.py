@@ -51,3 +51,4 @@ class EnquiryForm(forms.ModelForm):
         widgets = {
             'enquiry' :forms.Textarea(attrs={'rows': 4}),
         }
+

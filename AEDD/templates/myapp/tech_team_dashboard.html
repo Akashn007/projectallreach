@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Team Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .messages {
+            color: red;
+        }
+        .section {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            text-decoration: none;
+            color: red;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tech Team Dashboard</h2>
+
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Add User Section -->
+        <div class="section">
+            <h3>Add New User</h3>
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+
+                <label for="app_name">Assign to App:</label>
+                <select id="app_name" name="app_name" required>
+                    {% for app in apps %}
+                        <option value="{{ app.name }}">{{ app.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" name="add_user">Add User</button>
+            </form>
+        </div>
+
+        <!-- Manage Credentials Section -->
+        <div class="section">
+            <h3>Manage Credentials</h3>
+            <form method="post">
+                {% csrf_token %}
+                <label for="username">Select User:</label>
+                <select id="username" name="username" required>
+                    {% for user in users %}
+                        <option value="{{ user.username }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="new_username">New Username:</label>
+                <input type="text" id="new_username" name="new_username">
+
+                <label for="new_password">New Password:</label>
+                <input type="password" id="new_password" name="new_password">
+
+                <button type="submit" name="update_credentials">Update Credentials</button>
+            </form>
+        </div>
+
+        <a href="{% url 'tech_team_logout' %}">Logout</a>
+    </div>
+</body>
+</html>

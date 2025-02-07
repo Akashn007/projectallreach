@@ -27,19 +27,19 @@
 
         <!-- Admin Section -->
         <div class="section">
-            <h2 class="section-title"><a href="{% url 'admin_dashboard' %}" style="text-decoration: none;">Admin</a></h2>
+            <h2 class="section-title"><a href="{% url 'admin_login' %}" style="text-decoration: none;">Admin</a></h2>
             <!-- <p>Welcome to the Admin section. Here you can manage the overall operations.</p> -->
         </div>
 
         <!-- Business Development Section -->
         <div class="section">
-            <h2 class="section-title"><a href="{% url 'business_dashboard' %}" style="text-decoration: none;">Business Dev</a></h2>
+            <h2 class="section-title"><a href="{% url 'business_login' %}" style="text-decoration: none;">Business Dev</a></h2>
             <!-- <p>Welcome to the Business Development section. Here we handle the growth and partnerships.</p> -->
         </div>
 
         <!-- Technical Section -->
         <div class="section">
-            <h2 class="section-title"><a href="{% url 'technical_table_view' %}" style="text-decoration: none;">Technical</h2></a>
+            <h2 class="section-title"><a href="{% url 'technical_login' %}" style="text-decoration: none;">Technical</h2></a>
             <!-- <p>Welcome to the Technical section. This area focuses on development and innovation.</p> -->
         </div>
 
@@ -47,9 +47,16 @@
 
         <!-- Recruitment Section -->
         <div class="section">
-            <h2 class="section-title"><a href="{% url 'dashboard' %}" style="text-decoration: none;">Recruitment</a></h2>
+            <h2 class="section-title"><a href="{% url 'recruitment_login' %}" style="text-decoration: none;">Recruitment</a></h2>
             <!-- <p>Welcome to the Recruitment section. Here we handle the hiring and onboarding processes.</p> -->
         </div>
+
+        <div class="section">
+            <h2 class="section-title"><a href="{% url 'tech_team_dashboard' %}" style="text-decoration: none;">Tech Team</a></h2>
+            <!-- <p>Welcome to the Recruitment section. Here we handle the hiring and onboarding processes.</p> -->
+        </div>
+
+
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

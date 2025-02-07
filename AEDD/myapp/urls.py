@@ -20,8 +20,15 @@ urlpatterns = [
     path('edit/<int:pk>/', views.edit_ediary_entry, name='edit_ediary_entry'),  # Edit view
     path('delete/<int:pk>/', views.delete_ediary_entry, name='delete_ediary_entry'),
 
+    path('login/', views.user_login_myapp, name='login'),
 
+    path('login/', views.user_login_myapp, name='admin_login'),
+    path('logout/', views.user_logout_myapp, name='admin_logout'),
 
+    # path('manage-credentials/', views.manage_credentials, name='manage_credentials'),
 
-
+    path('tech-team/', views.manage_credentials, name='tech_team_dashboard'),
+    path('tech-team/login/', views.tech_team_login, name='tech_team_login'),
+    path('tech-team/logout/', views.tech_team_logout, name='tech_team_logout'),
 ]
+

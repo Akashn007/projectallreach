@@ -1,6 +1,38 @@
 from django.shortcuts import render, redirect
 from .forms import ClientDirectoryForm
 from .models import Client, ClientAddress, ClientContact, ClientEmail, ContactPersonNumber, ContactPersonEmail
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+def user_login_myapp(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.groups.filter(name='MyAppUsers').exists():
+                login(request, user)
+                return redirect('admin_dashboard')  # Redirect to the MyApp dashboard
+            else:
+                messages.error(request, 'You do not have access to MyApp.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'myapp/login.html')
+@login_required(login_url='admin_login')
+def ad_dashboard(request):
+    return render(request, 'myapp/admin_dashboard.html')
+def user_logout_myapp(request):
+    logout(request)
+    return redirect('admin_login')  
+
+def dashboard(request):
+    return render(request,'myapp/dashboard.html')
+
+def admin_dashboard(request):
+    return render(request,'myapp/admin_dashboard.html')
 
 def add_client_directory(request):
     if request.method == 'POST':
@@ -40,11 +72,7 @@ def client_directory(request):
     clients = Client.objects.all()
     return render(request, 'myapp/client_directory.html', {'clients': clients })
 
-def dashboard(request):
-    return render(request,'myapp/dashboard.html')
 
-def admin_dashboard(request):
-    return render(request,'myapp/admin_dashboard.html')
 
 def client_directory(request):
     query = request.GET.get('search', '')
@@ -196,4 +224,77 @@ def enquiry_delete(request, pk):
                 
     
 
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User, Group
+from django.contrib import messages
 
+def tech_team_dashboard(request):
+    return render(request,'myapp/tech_team_dashboard.html')
+# Restrict access to Tech Team only
+def is_tech_team(user):
+    return user.groups.filter(name='TechTeam').exists()
+# Tech Team Login View
+def tech_team_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if is_tech_team(user):  # Check if user is in Tech Team group
+                login(request, user)
+                return redirect('tech_team_dashboard')
+            else:
+                messages.error(request, "You are not authorized to access this page.")
+        else:
+            messages.error(request, "Invalid username or password.")
+
+    return render(request, 'myapp/tech_team_login.html')
+
+# Tech Team Logout View
+@login_required(login_url='tech_team_login')
+def tech_team_logout(request):
+    logout(request)
+    return redirect('tech_team_login')
+
+@login_required(login_url='tech_team_login')
+@user_passes_test(is_tech_team)
+def manage_credentials(request):
+    if request.method == 'POST':
+        if 'add_user' in request.POST:
+            # Adding a new user
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            email = request.POST.get('email')
+            app_name = request.POST.get('app_name')  # Select which app the user belongs to
+            
+            if User.objects.filter(username=username).exists():
+                messages.error(request, f"Username '{username}' already exists.")
+            else:
+                new_user = User.objects.create_user(username=username, password=password, email=email)
+                group, created = Group.objects.get_or_create(name=app_name)
+                new_user.groups.add(group)  # Assign user to selected app group
+                messages.success(request, f"User '{username}' added successfully to {app_name}.")
+
+        elif 'update_credentials' in request.POST:
+            # Updating credentials
+            username = request.POST.get('username')
+            new_username = request.POST.get('new_username')
+            new_password = request.POST.get('new_password')
+
+            try:
+                user = User.objects.get(username=username)
+                if new_username:
+                    user.username = new_username
+                if new_password:
+                    user.set_password(new_password)
+                user.save()
+                messages.success(request, f"Credentials for '{username}' updated successfully.")
+            except User.DoesNotExist:
+                messages.error(request, f"User '{username}' does not exist.")
+
+        return redirect('tech_team_dashboard')
+
+    users = User.objects.all()
+    apps = Group.objects.all()  # Fetch all app groups
+    return render(request, 'myapp/tech_team_dashboard.html', {'users': users, 'apps': apps})

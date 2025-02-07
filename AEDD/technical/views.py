@@ -1,6 +1,33 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import TechnicalFormForm
 from .models import ScopeOfWork, ProjectTeamLeader, PTLRoles, ProjectTeamMember, PTMRoles, ProjectStatus
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+def user_login_technical(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.groups.filter(name='TechnicalUsers').exists():
+                login(request, user)
+                return redirect('technical_table_view')  # Redirect to the technical dashboard
+            else:
+                messages.error(request, 'You do not have access to the Technical section.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'technical/login.html')
+
+@login_required(login_url='technical_login')
+def technical_list(request):
+    return render(request, 'technical/technical_list.html')
+def user_logout_technical(request):
+    logout(request)
+    return redirect('technical_login')
 
 def techform_view(request):
     if request.method == 'POST':

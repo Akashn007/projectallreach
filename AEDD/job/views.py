@@ -9,6 +9,33 @@ from django.conf import settings
 from django.http import HttpResponse, FileResponse
 import os
 from django.urls import reverse
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+
+
+def user_login_job(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.groups.filter(name='RecruitmentUsers').exists():
+                login(request, user)
+                return redirect('dashboard')  # Redirect to the technical dashboard
+            else:
+                messages.error(request, 'You do not have access to the Technical section.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'job/login.html')
+
+@login_required(login_url='recruitment_login')
+def technical_job(request):
+    return render(request, 'job/dashboard.html')
+def user_logout_job(request):
+    logout(request)
+    return redirect('recruitment_login')
 
 def dashboard(request):
     return render(request, 'job/dashboard.html')

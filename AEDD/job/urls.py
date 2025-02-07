@@ -32,6 +32,9 @@ urlpatterns = [
     path('shortlisted/', views.shortlisted_applicants, name='shortlisted_applicants'),
     path('delete/<int:id>/', views.delete_applicant, name='delete_applicant'),
 
+    path('login/', views.user_login_job, name='recruitment_login'),
+    path('logout/', views.user_logout_job, name='recruitment_logout'),
+
 
 
 ]
